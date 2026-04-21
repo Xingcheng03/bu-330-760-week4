@@ -1,20 +1,26 @@
-# Week 4 Starter: Math Agent
+# Homework 3: Math Agent with Tool Use
 
-A ReAct agent that solves questions using tool calls.
+This project contains a ReAct math agent built with PydanticAI. The agent uses a calculator tool for arithmetic and a product lookup tool for questions that require catalog prices.
+
+## Video Walkthrough
+
+Add your video link here before submitting:
+
+- Video link: `https://youtu.be/LPh8zWDTVsw`
 
 ## Setup
 
-1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it.
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you do not already have it.
+2. Copy `.env.example` to `.env`.
+3. Add your API key to `.env`.
 
-2. Copy `.env.example` to `.env` and add your API key:
-   ```bash
-   cp .env.example .env
-   ```
-   Then edit `.env` and replace `your-key-here` with your key from [Google AI Studio](https://aistudio.google.com/apikey).
+For Google AI Studio, set:
 
-   To use a different provider, change the `MODEL` variable in `agent.py` and set the matching key in `.env`.
+```bash
+GOOGLE_API_KEY=your-key-here
+```
 
-3. Make sure `.env` is in your `.gitignore` so you don't commit your key.
+If you want to use another provider, update the `MODEL` value in `agent.py` and set the matching API key in `.env`.
 
 ## Run
 
@@ -22,14 +28,21 @@ A ReAct agent that solves questions using tool calls.
 uv run agent.py
 ```
 
-uv will install dependencies automatically on first run.
-
-The agent will work through each question in `math_questions.md` and print the ReAct trace (Reason / Act / Result) for each one.
+The agent reads the questions from `math_questions.md` and prints the full ReAct trace for each question, including tool calls and final answers.
 
 ## Files
 
-- `agent.py` - the ReAct agent (this is the file you'll modify)
+- `agent.py` - main agent and tool definitions
 - `calculator.py` - calculator tool
-- `products.json` - product catalog with prices
-- `math_questions.md` - the questions the agent solves
-- `.env.example` - template for your API key
+- `products.json` - product catalog
+- `math_questions.md` - assignment questions
+- `.env.example` - environment variable template
+- `.gitignore` - prevents committing secrets
+
+## What I Implemented
+
+I implemented the `product_lookup` tool in `agent.py`. It:
+
+- loads `products.json`
+- returns the product price when the name exists
+- returns the list of available product names when the name is not found
